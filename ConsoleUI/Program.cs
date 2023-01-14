@@ -15,17 +15,26 @@ namespace ConsoleUI
             //IoC
             //ProductTest();
             //CategoryTest();
-            //DTOsTest();
+            DTOsTest();
 
         }
 
         private static void DTOsTest()
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var product in productManager.GetProductDetails())
+            var result = productManager.GetProductDetails();
+            if (result.Success == true)
             {
-                Console.WriteLine(product.ProductName + "/" + product.CategoryName);
+                foreach (var product in result.Data)
+                {
+                    Console.WriteLine(product.ProductName + "/" + product.CategoryName);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
         }
 
         private static void CategoryTest()
@@ -39,10 +48,10 @@ namespace ConsoleUI
 
         private static void ProductTest()
         {
-            ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var product in productManager.GetByUnitPrice(40, 100))
+         //   ProductManager productManager = new ProductManager(new EfProductDal());
+         //   foreach (var product in productManager.GetByUnitPrice(40, 100))
             {
-                Console.WriteLine(product.ProductName);
+        //        Console.WriteLine(product.ProductName);
             }
         }
     }
